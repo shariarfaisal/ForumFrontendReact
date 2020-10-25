@@ -4,7 +4,7 @@ import './style.scss'
 import { Formik, Form } from 'formik'
 import * as Yup from 'yup'
 import { Link } from 'react-router-dom'
-import { getLogin } from '../../store/actions/user'
+import { getLogin } from '../../store/actions/login'
 import { connect } from 'react-redux'
 
 function Login({ getLogin, login }) {
@@ -65,7 +65,7 @@ function Login({ getLogin, login }) {
 
 const mapStateToProps = (state) => {
   return{
-    login: state.user.login
+    login: state.login
   }
 }
 

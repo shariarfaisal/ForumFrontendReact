@@ -59,6 +59,14 @@ body{
   font-size: 1.6rem;
 }
 
+a{
+  text-decoration: none!important;
+}
+
+#root{
+  background: var(--bg-primary);
+  font-family: var(--font-ubuntu);
+}
 
 .link{
   text-decoration: none;
@@ -116,4 +124,37 @@ body{
 .title-5{
   @include title;
   font-size: var(--font-size-xs);
+}
+
+.btn-primary{
+  padding: .5rem 1.5rem;
+  border: none;
+  border-radius: 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: .3s;
+  background: #009688;
+  color: #fff;
+
+  &:hover{
+    box-shadow: var(--shadow-sm-dark);
+  }
+}
+
+
+.notfound{
+  width: 100%;
+  min-height: 100vh;
+  font-family: var(--font-ubuntu);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .item{
+    width: 25%;
+    min-height: 10rem;
+    margin-top: -10rem;
+    font-size: 2rem;
+    text-align: center;
+  }
 }

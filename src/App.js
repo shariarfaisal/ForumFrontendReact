@@ -1,13 +1,32 @@
 import React,{ Fragment, useEffect } from 'react'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import Home from './components/home/Home'
+import Profile from './components/profile'
+import Users from './components/users'
 import Login from './components/login'
+import Signup from './components/signup'
 import Post from './components/post/Post'
+import MyPosts from './components/myPosts'
 import CreatePost from './components/create-post/CreatePost'
-import { getUserProfile, tokenNotFound } from './store/actions/user'
+import { getUserProfile, tokenNotFound } from './store/actions/profile'
 import { connect } from 'react-redux'
 
-const App = ({ user, getProfile, getLogin, history }) => {
+const NotFound = (props) => (
+  <div className="notfound">
+    <div className="item">
+      <div>404</div>
+      <div>Not Found</div>
+    </div>
+  </div>
+)
+
+const Loading = () => (
+  <div className="d-flex justify-content-center">
+    <span className="btn btn-lg btn-light my-3 py-2 px-4"><i className="bx bx-loader bx-spin mr-1 text-info"></i>loading....</span>
+  </div>
+)
+
+const App = ({ profile, getProfile, getLogin, history }) => {
   const token = localStorage.getItem('x-user-token')
 
   useEffect(() => {
@@ -20,22 +39,32 @@ const App = ({ user, getProfile, getLogin, history }) => {
 
   return(
     <Router>
-      {user.loading && <div>loading....</div>}
-      {!user.loading && <Switch>
-        {!user.data && <Route path="/" exact component={Login} />}
-        {user.data && <Fragment>
+      {profile.loading && <Loading />}
+      {!profile.loading && <Fragment>
+        {!profile.data && <Switch>
+          <Route path="/" exact component={Login} />
+          <Route path="/signup" component={Signup} />
+          <Route>
+            <Redirect path="/"/>
+          </Route>
+        </Switch>}
+        {profile.data && <Switch>
           <Route path="/" exact component={Home} />
-          <Route path="/post/create" exact component={CreatePost} />
+          <Route path="/users" exact component={Users} />
+          <Route path="/profile" exact component={Profile} />
+          <Route path="/post/new" exact component={CreatePost} />
+          <Route path="/profile/posts" exact component={MyPosts} />
           <Route path="/post/:id" exact component={Post} />
-        </Fragment>}
-      </Switch>}
+          <Route component={NotFound} />
+        </Switch>}
+      </Fragment>}
     </Router>
   )
 }
 
 const mapStateToProps = state => {
   return {
-    user: state.user.profile
+    profile: state.profile
   }
 }
 

@@ -1,55 +1,43 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import CommentItem from './CommentItem'
-import CreateComment from './CreateComment'
-import Layout from '../Layout'
+import React,{ useEffect } from 'react'
+import Layout from '../layout'
 import './post.scss'
+import { connect } from 'react-redux'
+import { getPost } from '../../store/actions/post'
+import Header from './Header'
+import PostBody from './PostBody'
 
 
+const Post = ({ getPostById, match, post}) => {
 
-const Post = (props) => {
+  useEffect(() => {
+    getPostById(match.params.id)
+  },[])
+
   return(
     <Layout>
-      <div className="content-home-posts">
-        <div className="post">
-          <div className="header">
-            <img className="profile-img" src="img/profile.jpg" alt="" />
-            <div className="identity">
-              <Link className="name">Sharia Emon Faisal</Link>
-              <small className="work">Software Engineer</small>
-            </div>
-          </div>
-
-          <div className="post-body">
-            <h3 className="title">This is the title of this post here we go..</h3>
-            <div className="body">
-              <p>
-              An element with position: absolute; is positioned relative to the nearest positioned ancestor (instead of positioned relative to the viewport, like fixed). However; if an absolute positioned element has no positioned ancestors, it uses the document body, and moves along with page scrolling Note: A "positioned" element is one whose position is anything except static.
-              <br />
-              <br />
-              An element with position: absolute; is positioned relative to the nearest positioned ancestor (instead of positioned relative to the viewport, like fixed). However; if an absolute positioned element has no positioned ancestors, it uses the document body, and moves along with page scrolling Note: A "positioned" element is one whose position is anything except static.
-              </p>
-            </div>
-
-
-            <CreateComment />
-
-
-            <div className="comments">
-
-              <CommentItem />
-              <CommentItem />
-              <CommentItem />
-              <CommentItem />
-              <CommentItem />
-
-            </div>
-
-
+      <div className="row mx-0 justify-content-center post-page">
+        <div className="col-sm-10 col-md-8">
+          <div className="post">
+            {post.loading && <small>loading...</small>}
+            {post.data && <Header {...post.data.profile} />}
+            {post.data && <PostBody {...post.data} />}
+            {post.error && <p style={{textAlign: 'center',marginTop: '40px'}}>Not Found</p>}
           </div>
         </div>
       </div>
     </Layout>
   )
 }
-export default Post
+
+const mapStateToProps = state => {
+  return {
+    post: state.post
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getPostById: (id) => dispatch(getPost(id))
+  }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(Post)

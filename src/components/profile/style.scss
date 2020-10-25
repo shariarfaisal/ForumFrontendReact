@@ -1,0 +1,36 @@
+
+
+.profile-content{
+  min-height: 70vh;
+  margin: 2rem 0;
+  padding: 2rem 1.5rem;
+  background: var(--bg-primary);
+  box-shadow: var(--shadow-sm);
+
+  .item{
+    width: 100%;
+    padding: .3rem 1rem;
+    font-size: 1rem;
+    font-weight: 400;
+    &-name{
+      font-weight: 500;
+      margin-right: 2rem;
+    }
+  }
+
+  .flex{
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .block{
+    .item-name,.item-value{
+      padding: .5rem 0;
+    }
+    .small{
+      font-size: 1rem;
+      color: grey;
+    }
+  }
+
+}
