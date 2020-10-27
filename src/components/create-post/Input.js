@@ -5,7 +5,7 @@ import TextError from './TextError'
 function Input(props) {
   const { label, name, ...rest } = props
   return(
-    <div className="form-group">
+    <div className="form-group" style={{fontSize: '1.1rem'}} >
       <label htmlFor={name}>{label}</label>
       <Field
         id={name}

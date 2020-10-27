@@ -1,11 +1,12 @@
-import React from 'react'
+import React,{ useEffect } from 'react'
 import UsersItem from './UsersItem'
 import './users.scss'
-import { getUsers } from '../../store/actions/user'
+import { getUsers } from '../../store/actions/users'
 import { connect } from 'react-redux'
 import Layout from '../layout'
 
-const Users = ({ users, loading }) => {
+const Users = ({ users, loading, getUsers  }) => {
+  useEffect(() => { getUsers() },[])
   return(
     <Layout>
       <div className="row mx-0 justify-content-center">
@@ -21,13 +22,13 @@ const Users = ({ users, loading }) => {
 
 const mapStateToProps = state => {
   return {
-    ...state.user
+    ...state.users
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    getUsers: dispatch(getUsers())
+    getUsers: () => dispatch(getUsers())
   }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(Users)

@@ -9,7 +9,7 @@ function Profile({ profile }) {
   return(
     <Layout>
       <div className="row mx-0 justify-content-center">
-        <div className="col-sm-10 col-md-8 profile-content">
+        <div className="col-11 col-sm-10 col-md-8 profile-content">
           {profile.data && <ProfileInfo {...profile.data} />}
         </div>
       </div>

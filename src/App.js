@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 import Home from './components/home/Home'
 import Profile from './components/profile'
 import Users from './components/users'
+import User from './components/user'
 import Login from './components/login'
 import Signup from './components/signup'
 import Post from './components/post/Post'
@@ -44,13 +45,12 @@ const App = ({ profile, getProfile, getLogin, history }) => {
         {!profile.data && <Switch>
           <Route path="/" exact component={Login} />
           <Route path="/signup" component={Signup} />
-          <Route>
-            <Redirect path="/"/>
-          </Route>
+          <Route component={NotFound}/>
         </Switch>}
         {profile.data && <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/users" exact component={Users} />
+          <Route path="/users/:id" exact component={User} />
           <Route path="/profile" exact component={Profile} />
           <Route path="/post/new" exact component={CreatePost} />
           <Route path="/profile/posts" exact component={MyPosts} />

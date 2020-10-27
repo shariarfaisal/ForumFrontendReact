@@ -18,7 +18,7 @@ const UsersItem = ({ id, name, imageUrl, social }) => {
         <div className="image"><img src="./img/user.jpg" alt="" /></div>
         <p className="mb-0 text-center name">{nameShorter(name)}</p>
         <div className="d-flex">
-          <Link to={`/user/${id}`} className="btn btn-sm btn-outline-info px-4 mx-auto my-2 rounded-20" type="button">
+          <Link to={`/users/${id}`} className="btn btn-sm btn-outline-info px-4 mx-auto my-2 rounded-20" type="button">
             <i className="bx bx-user mr-1"></i>
             <span>Profile</span>
           </Link>
